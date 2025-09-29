@@ -98,7 +98,7 @@ def graph_search(
                 num_generated_str, elapsed_time_str = print_search_status(leaf.extract_plan(), frontier)
                 
                 # would get conversion errors when trying to use the strings; i think it may be due to how the usage of ',' and '.' are swapped when it comes to US/EU numerical formats
-                result: tuple = goal_description.is_goal(leaf), leaf.extract_plan(), int(num_generated_str), float(elapsed_time_str.replace(",", "."))
+                result: tuple = goal_description.is_goal(leaf), leaf.extract_plan(), float(num_generated_str), float(elapsed_time_str.replace(",", "."))
                 return result
             
             # otherwise, add leaf to explored, expand the node and get all availiable actions that can be executed in current state

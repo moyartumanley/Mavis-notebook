@@ -119,6 +119,7 @@ class FrontierBestFirst:
 
     def contains(self, state: h_state.HospitalState) -> bool:
         return state in self.priority_queue
+            
 
 
 # The FrontierAStar and FrontierGreedy classes extend the FrontierBestFirst class, that is, they are
@@ -130,9 +131,10 @@ class FrontierAStar(FrontierBestFirst):
         self.heuristic = heuristic
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
-        raise NotImplementedError()
-        
-
+      g_n = state.path_cost
+      h_n = self.heuristic
+      return g_n + h_n
+      
 class FrontierGreedy(FrontierBestFirst):
 
     def __init__(self, heuristic):
@@ -140,5 +142,6 @@ class FrontierGreedy(FrontierBestFirst):
         self.heuristic = heuristic
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
-        raise NotImplementedError()
+        h_n = self.heuristic
+        return h_n
     

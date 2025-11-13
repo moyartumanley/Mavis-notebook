@@ -104,21 +104,23 @@ class FrontierBestFirst:
         raise Exception("FrontierBestFirst should not be directly used. Instead use a subclass overriding f()")
 
     def add(self, state: h_state.HospitalState):
+        #priority is based on the evaluation function
+        priority = self.f(state, self.goal_description)
         # add to priority queue, sort by path cost
-        self.priority_queue.add(state, state.path_cost)
+        self.priority_queue.add(state, priority)
         
     def pop(self) -> h_state.HospitalState:
         state = self.priority_queue.pop()
         return state
 
     def is_empty(self) -> bool:
-        return len(self.priority_queue) == 0
+        return self.size() == 0
 
     def size(self) -> int:
-        return len(self.priority_queue)
+        return self.priority_queue.size()
 
     def contains(self, state: h_state.HospitalState) -> bool:
-        return state in self.priority_queue
+        return state in self.priority_queue.entry_finder
             
 
 
@@ -132,7 +134,7 @@ class FrontierAStar(FrontierBestFirst):
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
       g_n = state.path_cost
-      h_n = self.heuristic
+      h_n = self.heuristic.h(state, goal_description)
       return g_n + h_n
       
 class FrontierGreedy(FrontierBestFirst):
@@ -142,6 +144,6 @@ class FrontierGreedy(FrontierBestFirst):
         self.heuristic = heuristic
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
-        h_n = self.heuristic
+        h_n = self.heuristic.h(state, goal_description)
         return h_n
     

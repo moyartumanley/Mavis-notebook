@@ -96,8 +96,6 @@ class FrontierBestFirst:
         self.goal_description = goal_description
         # Prepare is called at the beginning of a search and since we will sometimes reuse frontiers for multiple
         # searches, prepares must ensure that state is cleared.
-        # Your code here...
-        
         self.priority_queue.clear()
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
@@ -133,7 +131,9 @@ class FrontierAStar(FrontierBestFirst):
         self.heuristic = heuristic
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
+    # cost of reaching current node from the initial node
       g_n = state.path_cost
+    # estimated cost of going from current node to goal
       h_n = self.heuristic.h(state, goal_description)
       return g_n + h_n
       
@@ -144,6 +144,7 @@ class FrontierGreedy(FrontierBestFirst):
         self.heuristic = heuristic
 
     def f(self, state: h_state.HospitalState, goal_description: h_goal_description.HospitalGoalDescription) -> int:
+        # estimates nodes using only heuristic function
         h_n = self.heuristic.h(state, goal_description)
         return h_n
     

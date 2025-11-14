@@ -72,8 +72,7 @@ class HospitalGoalCountHeuristics:
             elif not is_positive and obj == char:
                 unsatisfied +=1
             
-        return 0 #change to return unsatisfied if implemented correctly
-            
+        return unsatisfied
 
 class HospitalAdvancedHeuristics:
 

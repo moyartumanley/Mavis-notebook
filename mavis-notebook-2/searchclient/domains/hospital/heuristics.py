@@ -57,6 +57,8 @@ class HospitalGoalCountHeuristics:
         # your code here...
         # estimate of how far the current state is from satisfying lvl goals
         # num of box and agent goals that aren't satisfied
+        state.agent_positions
+        state.box_positions
         unsatisfied = 0
         
         #goals are in form (position, character, is_positive)
